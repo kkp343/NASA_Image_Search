@@ -23,7 +23,7 @@ class GalleryViewModel @ViewModelInject constructor(
 
     companion object {
         private const val CURRENT_QUERY = "current_query"
-        private const val DEFAULT_QUERY = "apollo 11"
+        private const val DEFAULT_QUERY = "mars"
     }
 
 //        val photos = repository.getSearchResults(

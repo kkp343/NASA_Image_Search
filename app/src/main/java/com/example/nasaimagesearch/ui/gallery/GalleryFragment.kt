@@ -11,6 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.example.nasaimagesearch.R
+import com.example.nasaimagesearch.api.NasaDataItem
+import com.example.nasaimagesearch.api.NasaDataObject
 import com.example.nasaimagesearch.data.NasaImage
 import com.example.nasaimagesearch.databinding.FragmentGalleryBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,9 +70,10 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery), ImageAdapter.OnItem
         setHasOptionsMenu(true)
     }
 
-    override fun onItemClick(photo: NasaImage) {
+    override fun onItemClick(nasaImage: NasaImage, nasaDataItem: NasaDataItem) {
         val action = GalleryFragmentDirections
-            .actionGalleryFragmentToImageDetailsFragment(photo)
+            .actionGalleryFragmentToImageDetailsFragment(nasaImage = nasaImage,
+                nasaDataItem = nasaDataItem)
         findNavController().navigate(action)
     }
 

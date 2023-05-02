@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.nasaimagesearch.R
+import com.example.nasaimagesearch.api.NasaDataItem
+import com.example.nasaimagesearch.api.NasaDataObject
 import com.example.nasaimagesearch.data.NasaImage
 import com.example.nasaimagesearch.databinding.ItemImageBinding
 
@@ -27,8 +29,8 @@ class ImageAdapter(private val listener: OnItemClickListener) : PagingDataAdapte
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         val currentItem = getItem(position)
 
-        if (currentItem != null) {
-            holder.bind(currentItem)
+        if (currentItem != null && currentItem.data[position] != null) {
+            holder.bind(currentItem, currentItem.data[position])
         }
     }
 
@@ -39,38 +41,39 @@ class ImageAdapter(private val listener: OnItemClickListener) : PagingDataAdapte
             binding.root.setOnClickListener {
                 val position = bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    val item = getItem(position)
-                    if (item != null) {
-                        listener.onItemClick(item)
+                    val nasaDataItem = getItem(position)
+                    if (nasaDataItem != null) {
+                        listener.onItemClick(
+                            nasaDataItem, nasaDataItem.data[position]
+                        )
                     }
                 }
             }
         }
 
-        fun bind(photo: NasaImage) {
-//            binding.apply {
-//                Glide.with(itemView)
-//                    .load(photo.dataPhoto.data.)
-//                    .centerCrop()
-//                    .transition(DrawableTransitionOptions.withCrossFade())
-//                    .error(R.drawable.ic_error)
-//                    .into(imageView)
-//
-//                textViewImageName.text = photo.dataPhoto.title
-//            }
-            binding.imageView = photo.dataPhoto.
+        fun bind(photo: NasaImage, nasaDataItem: NasaDataItem) {
+            binding.apply {
+                Glide.with(itemView)
+                    .load(photo.href)
+                    .centerCrop()
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .error(R.drawable.ic_error)
+                    .into(imageView)
+
+                textViewImageName.text = nasaDataItem.title
+            }
         }
 
     }
 
     interface OnItemClickListener {
-        fun onItemClick(photo: NasaImage)
+        fun onItemClick(nasaImage: NasaImage, nasaDataItem: NasaDataItem)
     }
 
     companion object {
         private val PHOTO_COMPARATOR = object : DiffUtil.ItemCallback<NasaImage>() {
             override fun areItemsTheSame(oldItem: NasaImage, newItem: NasaImage) =
-                oldItem.id == newItem.id
+                oldItem.data.first().nasa_id == newItem.data.first().nasa_id
 
             override fun areContentsTheSame(oldItem: NasaImage, newItem: NasaImage) =
                 oldItem == newItem

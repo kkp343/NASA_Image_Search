@@ -20,7 +20,10 @@
         android:label="Image Details"
         tools:layout="@layout/fragment_image_details">
         <argument
-            android:name="photo"
+            android:name="nasaDataItem"
+            app:argType="com.example.nasaimagesearch.api.NasaDataItem" />
+        <argument
+            android:name="nasaImage"
             app:argType="com.example.nasaimagesearch.data.NasaImage" />
     </fragment>
 </navigation>

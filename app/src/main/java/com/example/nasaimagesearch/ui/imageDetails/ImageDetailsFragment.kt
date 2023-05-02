@@ -2,7 +2,6 @@ package com.example.nasaimagesearch.ui.imageDetails
 
 import android.content.Intent
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -26,9 +25,10 @@ class ImageDetailsFragment : Fragment(R.layout.fragment_image_details) {
         val binding = FragmentImageDetailsBinding.bind(view)
 
         binding.apply {
-            val photo = argument.photo
+            val nasaDataItem = argument.nasaDataItem
+            val nasaImage = argument.nasaImage
             Glide.with(this@ImageDetailsFragment)
-                .load(photo.dataPhoto)
+                .load(nasaImage.href)
                 .error(R.drawable.ic_error)
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(
@@ -49,29 +49,28 @@ class ImageDetailsFragment : Fragment(R.layout.fragment_image_details) {
                         isFirstResource: Boolean
                     ): Boolean {
                         progressBar.isVisible = false
-                        textViewTitle.isVisible = photo.dataPhoto.title != null
-                        textViewDescription.isVisible = photo. != null
-                        textViewDateCreated.isVisible = photo.date != null
+                        textViewTitle.isVisible = nasaDataItem.title != null
+                        textViewDescription.isVisible = nasaDataItem.description != null
+                        textViewDateCreated.isVisible = nasaDataItem.date_created != null
                         return false
                     }
                 })
                 .into(imageView)
 
             textViewTitle.apply {
-                text = photo.title
+                text = nasaDataItem.title
                 val intentTitle = Intent(Intent.ACTION_VIEW)
                 context?.startActivity(intentTitle)
             }
 
             textViewDescription.apply {
-                text = photo.description
-                val uri = Uri.parse(photo.user.attributionUrl)
-                val intentDescription = Intent(Intent.ACTION_VIEW, uri)
+                text = nasaDataItem.description
+                val intentDescription = Intent(Intent.ACTION_VIEW)
                 context?.startActivity(intentDescription)
             }
 
             textViewDateCreated.apply {
-                text = photo.data.
+                text = nasaDataItem.date_created
                 val intentDateCreated = Intent(Intent.ACTION_VIEW)
                 context?.startActivity(intentDateCreated)
             }

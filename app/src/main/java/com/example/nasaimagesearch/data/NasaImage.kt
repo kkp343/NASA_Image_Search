@@ -7,7 +7,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class NasaImage(
-    val dataPhoto : NasaDataItem
+    val href : String,
+    val data : List<NasaDataItem>
 ) : Parcelable
 
 //{
