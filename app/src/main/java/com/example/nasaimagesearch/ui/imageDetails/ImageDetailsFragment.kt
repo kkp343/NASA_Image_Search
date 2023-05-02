@@ -28,7 +28,7 @@ class ImageDetailsFragment : Fragment(R.layout.fragment_image_details) {
         binding.apply {
             val photo = argument.photo
             Glide.with(this@ImageDetailsFragment)
-                .load(photo.urls.href)
+                .load(photo.dataPhoto)
                 .error(R.drawable.ic_error)
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(
@@ -49,8 +49,8 @@ class ImageDetailsFragment : Fragment(R.layout.fragment_image_details) {
                         isFirstResource: Boolean
                     ): Boolean {
                         progressBar.isVisible = false
-                        textViewTitle.isVisible = photo.title != null
-                        textViewDescription.isVisible = photo.description != null
+                        textViewTitle.isVisible = photo.dataPhoto.title != null
+                        textViewDescription.isVisible = photo. != null
                         textViewDateCreated.isVisible = photo.date != null
                         return false
                     }
@@ -71,7 +71,7 @@ class ImageDetailsFragment : Fragment(R.layout.fragment_image_details) {
             }
 
             textViewDateCreated.apply {
-                text = photo.date
+                text = photo.data.
                 val intentDateCreated = Intent(Intent.ACTION_VIEW)
                 context?.startActivity(intentDateCreated)
             }

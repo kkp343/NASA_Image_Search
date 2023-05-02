@@ -48,16 +48,17 @@ class ImageAdapter(private val listener: OnItemClickListener) : PagingDataAdapte
         }
 
         fun bind(photo: NasaImage) {
-            binding.apply {
-                Glide.with(itemView)
-                    .load(photo.urls.href)
-                    .centerCrop()
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .error(R.drawable.ic_error)
-                    .into(imageView)
-
-                textViewImageName.text = photo.user.imageName
-            }
+//            binding.apply {
+//                Glide.with(itemView)
+//                    .load(photo.dataPhoto.data.)
+//                    .centerCrop()
+//                    .transition(DrawableTransitionOptions.withCrossFade())
+//                    .error(R.drawable.ic_error)
+//                    .into(imageView)
+//
+//                textViewImageName.text = photo.dataPhoto.title
+//            }
+            binding.imageView = photo.dataPhoto.
         }
 
     }
