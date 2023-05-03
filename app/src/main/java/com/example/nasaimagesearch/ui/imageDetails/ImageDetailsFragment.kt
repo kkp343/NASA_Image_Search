@@ -1,6 +1,5 @@
 package com.example.nasaimagesearch.ui.imageDetails
 
-import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
@@ -57,23 +56,9 @@ class ImageDetailsFragment : Fragment(R.layout.fragment_image_details) {
                 })
                 .into(imageView)
 
-            textViewTitle.apply {
-                text = nasaDataItem.title
-                val intentTitle = Intent(Intent.ACTION_VIEW)
-                context?.startActivity(intentTitle)
-            }
-
-            textViewDescription.apply {
-                text = nasaDataItem.description
-                val intentDescription = Intent(Intent.ACTION_VIEW)
-                context?.startActivity(intentDescription)
-            }
-
-            textViewDateCreated.apply {
-                text = nasaDataItem.date_created
-                val intentDateCreated = Intent(Intent.ACTION_VIEW)
-                context?.startActivity(intentDateCreated)
-            }
+            textViewTitle.text = nasaDataItem.title
+            textViewDescription.text = nasaDataItem.description
+            textViewDateCreated.text = nasaDataItem.date_created
         }
     }
 }

@@ -48,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
+                android:textColor="@color/grey"
                 android:visibility="gone"
                 tools:text="This field is for the description"
                 tools:visibility="visible" />
