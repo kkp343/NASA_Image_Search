@@ -6,18 +6,20 @@ import retrofit2.HttpException
 import java.io.IOException
 
 private const val STARTING_PAGE_INDEX = 1
+
 class ImagePagingSource(
     private val nasaApi: NasaApi,
     private val query: String
 //    private val description: String,
 //    private val media_type: String
-) : PagingSource<Int, NasaImage>(){
+) : PagingSource<Int, NasaImage>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, NasaImage> {
         val position = params.key ?: STARTING_PAGE_INDEX
 
         return try {
-        val response = nasaApi.searchImages(query
+        val response = nasaApi.searchImages(
+            query
             //position, params.loadSize
         //    , description, media_type
         )
@@ -25,7 +27,7 @@ class ImagePagingSource(
 
             LoadResult.Page(
                 data = photos,
-                prevKey = if (position == STARTING_PAGE_INDEX) null else position -1,
+                prevKey = if (photos.isEmpty() || position == STARTING_PAGE_INDEX) null else position -1,
                 nextKey = if (photos.isEmpty()) null else position + 1
             )
         } catch (exception: IOException) {

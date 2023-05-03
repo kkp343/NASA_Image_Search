@@ -28,7 +28,7 @@ class ImageDetailsFragment : Fragment(R.layout.fragment_image_details) {
             val nasaDataItem = argument.nasaDataItem
             val nasaImage = argument.nasaImage
             Glide.with(this@ImageDetailsFragment)
-                .load(nasaImage.href)
+                .load(nasaImage.links.first().href)
                 .error(R.drawable.ic_error)
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(
@@ -74,8 +74,6 @@ class ImageDetailsFragment : Fragment(R.layout.fragment_image_details) {
                 val intentDateCreated = Intent(Intent.ACTION_VIEW)
                 context?.startActivity(intentDateCreated)
             }
-
-
         }
     }
 }

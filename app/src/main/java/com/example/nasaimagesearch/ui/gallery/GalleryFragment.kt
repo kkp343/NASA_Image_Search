@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.example.nasaimagesearch.R
 import com.example.nasaimagesearch.api.NasaDataItem
-import com.example.nasaimagesearch.api.NasaDataObject
 import com.example.nasaimagesearch.data.NasaImage
 import com.example.nasaimagesearch.databinding.FragmentGalleryBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,7 +36,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery), ImageAdapter.OnItem
             recyclerView.setHasFixedSize(true)
             recyclerView.itemAnimator = null
             recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
-                header = NasaImageLoadStateAdapter { adapter.retry()    },
+                header = NasaImageLoadStateAdapter { adapter.retry() },
                 footer = NasaImageLoadStateAdapter { adapter.retry() }
             )
             buttonRetry.setOnClickListener {
@@ -57,8 +56,9 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery), ImageAdapter.OnItem
                 textViewError.isVisible = loadState.source.refresh is LoadState.Error
 
                 if (loadState.source.refresh is LoadState.NotLoading &&
-                        loadState.append.endOfPaginationReached &&
-                        adapter.itemCount < 1 ) {
+                    loadState.append.endOfPaginationReached &&
+                    adapter.itemCount < 1
+                ) {
                     recyclerView.isVisible = false
                     textViewEmpty.isVisible = true
                 } else {
@@ -72,8 +72,10 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery), ImageAdapter.OnItem
 
     override fun onItemClick(nasaImage: NasaImage, nasaDataItem: NasaDataItem) {
         val action = GalleryFragmentDirections
-            .actionGalleryFragmentToImageDetailsFragment(nasaImage = nasaImage,
-                nasaDataItem = nasaDataItem)
+            .actionGalleryFragmentToImageDetailsFragment(
+                nasaImage = nasaImage,
+                nasaDataItem = nasaDataItem
+            )
         findNavController().navigate(action)
     }
 
@@ -85,7 +87,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery), ImageAdapter.OnItem
         val searchItem = menu.findItem(R.id.action_search)
         val searchView = searchItem.actionView as SearchView
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
 
                 if (query != null) {
@@ -99,7 +101,6 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery), ImageAdapter.OnItem
             override fun onQueryTextChange(newText: String?): Boolean {
                 return true
             }
-
         })
     }
 
@@ -107,5 +108,4 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery), ImageAdapter.OnItem
         super.onDestroyView()
         _binding = null
     }
-
 }

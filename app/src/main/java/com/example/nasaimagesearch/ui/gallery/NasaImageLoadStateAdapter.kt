@@ -8,13 +8,15 @@ import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nasaimagesearch.databinding.ImageStateFooterBinding
 
-class NasaImageLoadStateAdapter(private val retry : () -> Unit) :
+class NasaImageLoadStateAdapter(private val retry: () -> Unit) :
     LoadStateAdapter<NasaImageLoadStateAdapter.LoadStateViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): LoadStateViewHolder {
-        val binding = ImageStateFooterBinding.inflate(LayoutInflater.from(parent.context),
+        val binding = ImageStateFooterBinding.inflate(
+            LayoutInflater.from(parent.context),
             parent,
-            false)
+            false
+        )
         return LoadStateViewHolder(binding)
     }
 
@@ -26,17 +28,17 @@ class NasaImageLoadStateAdapter(private val retry : () -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.buttonRetry.setOnClickListener{
+            binding.buttonRetry.setOnClickListener {
                 retry.invoke()
             }
         }
 
-            fun bind(loadState: LoadState) {
-                binding.apply {
-                    progressBar.isVisible = loadState is LoadState.Loading
-                    buttonRetry.isVisible = loadState !is LoadState.Loading
-                    textViewError.isVisible = loadState !is LoadState.Loading
-                }
+        fun bind(loadState: LoadState) {
+            binding.apply {
+                progressBar.isVisible = loadState is LoadState.Loading
+                buttonRetry.isVisible = loadState !is LoadState.Loading
+                textViewError.isVisible = loadState !is LoadState.Loading
             }
+        }
     }
 }

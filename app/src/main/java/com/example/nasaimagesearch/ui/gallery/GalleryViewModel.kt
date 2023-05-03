@@ -9,9 +9,9 @@ import com.example.nasaimagesearch.data.NasaImageRepository
 class GalleryViewModel @ViewModelInject constructor(
     private val repository: NasaImageRepository,
     @Assisted state: SavedStateHandle
-    ): ViewModel() {
+) : ViewModel() {
 
-    private val currentQuery =  state.getLiveData(CURRENT_QUERY,DEFAULT_QUERY )
+    private val currentQuery = state.getLiveData(CURRENT_QUERY, DEFAULT_QUERY)
 
     val photos = currentQuery.switchMap { queryString ->
         repository.getSearchResults(queryString).cachedIn(viewModelScope)
@@ -25,8 +25,4 @@ class GalleryViewModel @ViewModelInject constructor(
         private const val CURRENT_QUERY = "current_query"
         private const val DEFAULT_QUERY = "mars"
     }
-
-//        val photos = repository.getSearchResults(
-//            "apollo 11", "moon landing", "image")
-
 }

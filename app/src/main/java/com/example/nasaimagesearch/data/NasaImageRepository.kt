@@ -10,8 +10,8 @@ import javax.inject.Singleton
 @Singleton
 class NasaImageRepository @Inject constructor(private val nasaApi: NasaApi) {
 
-    fun getSearchResults(query: String
-                         //, description: String, media_type: String
+    fun getSearchResults(
+        query: String
     ) =
         Pager(
             config = PagingConfig(
@@ -19,9 +19,10 @@ class NasaImageRepository @Inject constructor(private val nasaApi: NasaApi) {
                 maxSize = 100,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = { ImagePagingSource(
-                nasaApi, query
-            //    , description, media_type
-            )}
+            pagingSourceFactory = {
+                ImagePagingSource(
+                    nasaApi, query
+                )
+            }
         ).liveData
 }

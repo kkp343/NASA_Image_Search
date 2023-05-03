@@ -9,11 +9,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.nasaimagesearch.R
 import com.example.nasaimagesearch.api.NasaDataItem
-import com.example.nasaimagesearch.api.NasaDataObject
 import com.example.nasaimagesearch.data.NasaImage
 import com.example.nasaimagesearch.databinding.ItemImageBinding
 
-class ImageAdapter(private val listener: OnItemClickListener) : PagingDataAdapter<NasaImage, ImageAdapter.ImageViewHolder>(PHOTO_COMPARATOR) {
+class ImageAdapter(private val listener: OnItemClickListener) :
+    PagingDataAdapter<NasaImage, ImageAdapter.ImageViewHolder>(PHOTO_COMPARATOR) {
 
     // onCreateViewHolder is used inflate ItemLayout
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
@@ -29,8 +29,8 @@ class ImageAdapter(private val listener: OnItemClickListener) : PagingDataAdapte
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         val currentItem = getItem(position)
 
-        if (currentItem != null && currentItem.data[position] != null) {
-            holder.bind(currentItem, currentItem.data[position])
+        if (currentItem != null) {
+            holder.bind(currentItem, currentItem.data[0])
         }
     }
 
@@ -44,7 +44,7 @@ class ImageAdapter(private val listener: OnItemClickListener) : PagingDataAdapte
                     val nasaDataItem = getItem(position)
                     if (nasaDataItem != null) {
                         listener.onItemClick(
-                            nasaDataItem, nasaDataItem.data[position]
+                            nasaDataItem, nasaDataItem.data[0]
                         )
                     }
                 }
@@ -54,7 +54,10 @@ class ImageAdapter(private val listener: OnItemClickListener) : PagingDataAdapte
         fun bind(photo: NasaImage, nasaDataItem: NasaDataItem) {
             binding.apply {
                 Glide.with(itemView)
-                    .load(photo.href)
+                    .load(
+                        photo.links
+                            .first().href
+                    )
                     .centerCrop()
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .error(R.drawable.ic_error)
