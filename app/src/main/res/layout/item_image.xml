@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
+    android:layout_height="@dimen/relative_layout_height"
     tools:context=".MainActivity">
 
     <ImageView
@@ -13,7 +13,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/imageViewHeight"
         android:layout_alignBottom="@+id/image_view"
         android:background="@drawable/gradient"/>
 
@@ -22,12 +22,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/image_view"
-        android:layout_margin="8dp"
-        android:drawablePadding="4dp"
+        android:layout_margin="@dimen/layout_margin"
+        android:drawablePadding="@dimen/layout_padding_and_margins"
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:maxLines="1"
-        android:textColor="#fff"
+        android:textColor="@color/white"
         app:drawableStartCompat="@drawable/ic_image_title"
         tools:text="imageName" />
 
