@@ -10,8 +10,6 @@ private const val STARTING_PAGE_INDEX = 1
 class ImagePagingSource(
     private val nasaApi: NasaApi,
     private val query: String
-//    private val description: String,
-//    private val media_type: String
 ) : PagingSource<Int, NasaImage>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, NasaImage> {
@@ -20,8 +18,6 @@ class ImagePagingSource(
         return try {
         val response = nasaApi.searchImages(
             query
-            //position, params.loadSize
-        //    , description, media_type
         )
         val photos = response.collection.items
 
